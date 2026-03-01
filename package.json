@@ -1,0 +1,35 @@
+{
+  "name": "discord-claude-code",
+  "version": "0.1.0",
+  "description": "Discord bot for Claude Code - Control Claude Code from Discord with session management and team collaboration",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "echo \"Tests not yet implemented\""
+  },
+  "keywords": [
+    "discord",
+    "claude",
+    "claude-code",
+    "anthropic",
+    "ai",
+    "bot"
+  ],
+  "author": "John <your-email@example.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
