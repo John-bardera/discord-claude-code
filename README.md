@@ -5,11 +5,26 @@
 ## 🎯 Features
 
 - ✅ **Discord UI** - Use Discord as input/output interface for Claude Code
+- ✅ **Multi-Agent Support** - Each agent appears with unique username, emoji, and color via webhooks
 - ✅ **Parallel Sessions** - Multiple concurrent sessions (thread/channel-based)
 - ✅ **Context Persistence** - Maintain context during active sessions
 - ✅ **Resource Management** - Auto-close sessions after timeout
 - ✅ **Team Collaboration** - Team members can watch, approve, and queue tasks
-- ✅ **Lightweight** - Minimal resource footprint
+- ✅ **Lightweight** - Minimal resource footprint (no Docker required)
+
+### 🤖 Multi-Agent Display
+
+When webhooks are configured, agents appear with distinct identities:
+
+```
+📋 Planner: Implementation plan created...
+🏗️ Architect: System design completed...
+🧪 TDD Guide: Test cases generated...
+👁️ Code Reviewer: Code review completed...
+🔒 Security Reviewer: Security scan passed...
+```
+
+See [SETUP.md](SETUP.md) for webhook configuration guide.
 
 ## 🚀 Quick Start
 
@@ -24,6 +39,8 @@ cp .env.example .env
 # Run
 npm run dev
 ```
+
+> 📖 **Need detailed setup instructions?** See [SETUP.md](SETUP.md) for a complete guide including Discord bot creation, webhook configuration, and troubleshooting.
 
 ## 📋 Requirements
 
@@ -75,7 +92,10 @@ discord-claude-code/
 │   ├── bot.ts        # Discord bot setup
 │   ├── claude.ts     # Claude Code wrapper
 │   ├── session.ts    # Session management
+│   ├── agents.ts     # Agent definitions
+│   ├── webhook.ts    # Webhook management
 │   └── config.ts     # Configuration
+├── SETUP.md          # Setup guide
 ├── package.json
 ├── tsconfig.json
 ├── .env.example
