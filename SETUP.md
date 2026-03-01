@@ -1,6 +1,6 @@
 # Setup Guide
 
-Complete guide to set up Discord Claude Code bot with multi-agent support.
+Complete guide to set up Discord Claude Code bot.
 
 ## 📋 Prerequisites
 
@@ -69,15 +69,17 @@ Complete guide to set up Discord Claude Code bot with multi-agent support.
 
 ---
 
-## Step 5: Create Webhooks for Multi-Agent Support
+## Step 5: (Optional) Configure Webhooks for Agent Display
+
+> **Note**: This step is optional for Phase 2. For Phase 1 (simple implementation), you can skip this step.
 
 ### What are Webhooks?
 
-Webhooks allow the bot to send messages with different usernames and avatars for each agent. Without webhooks, all messages will appear from the same bot user.
+Webhooks allow the bot to send messages with different usernames and avatars for visual distinction. Without webhooks, all messages will appear from the same bot user.
 
 ### Create Webhooks
 
-For each channel where you want multi-agent support:
+For each channel where you want webhook support:
 
 1. Open your Discord server
 2. Go to the channel where you want to use Claude Code
@@ -178,19 +180,24 @@ npm start
    - Look for the bot in the member list
    - It should show as "Online"
 
-2. Test basic functionality:
-   - Send a message in a channel with the bot
+2. Test basic functionality (Phase 1):
+   - Send a message in a channel with the bot (e.g., "Hello, can you help me?")
    - The bot should respond via Claude Code
+   - Try asking a coding question to verify full functionality
 
-3. Test multi-agent support (if webhooks configured):
-   - Send a message like "[Planner] Create a plan for..."
-   - The response should appear from "📋 Planner" with the planner's color
+3. Test webhook support (if configured in Step 5):
+   - Send a message in a webhook-configured channel
+   - The response should appear via webhook (different appearance if configured)
 
 ---
 
-## 🎨 Multi-Agent Display
+## 🎨 Phase 2 Features (Optional)
 
-When webhooks are configured, agents will appear with distinct identities:
+> **Note**: These features are planned for Phase 2 implementation.
+
+### Agent Collaboration Display
+
+When webhooks are configured in Phase 2, agents will appear with distinct identities:
 
 | Agent | Username | Emoji | Color |
 |-------|----------|-------|-------|

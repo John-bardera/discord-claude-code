@@ -1,30 +1,36 @@
 # Discord Claude Code
 
-> Discord bot for Claude Code - Control Claude Code from Discord with session management and team collaboration
+> Discord bot for Claude Code - Use Claude Code from Discord with session management
 
-## 🎯 Features
+## 🎯 Features (Phase 1)
 
 - ✅ **Discord UI** - Use Discord as input/output interface for Claude Code
-- ✅ **Multi-Agent Support** - Each agent appears with unique username, emoji, and color via webhooks
 - ✅ **Parallel Sessions** - Multiple concurrent sessions (thread/channel-based)
 - ✅ **Context Persistence** - Maintain context during active sessions
 - ✅ **Resource Management** - Auto-close sessions after timeout
-- ✅ **Team Collaboration** - Team members can watch, approve, and queue tasks
 - ✅ **Lightweight** - Minimal resource footprint (no Docker required)
 
-### 🤖 Multi-Agent Display
+### 🚧 Planned Features (Phase 2)
 
-When webhooks are configured, agents appear with distinct identities:
+- ⏳ **Agent Collaboration Display** - Visualize agent consultation progress in Discord (optional feature)
+- ⏳ **Slash Commands** - `/start`, `/stop`, `/status` commands
+- ⏳ **File Upload** - Share files with Claude via Discord
 
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Configure environment
+cp .env.example .env
+# Edit .env with your Discord token
+
+# Run
+npm run dev
 ```
-📋 Planner: Implementation plan created...
-🏗️ Architect: System design completed...
-🧪 TDD Guide: Test cases generated...
-👁️ Code Reviewer: Code review completed...
-🔒 Security Reviewer: Security scan passed...
-```
 
-See [SETUP.md](SETUP.md) for webhook configuration guide.
+> 📖 **Need detailed setup instructions?** See [SETUP.md](SETUP.md) for a complete guide including Discord bot creation, webhook configuration, and troubleshooting.
 
 ## 🚀 Quick Start
 

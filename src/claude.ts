@@ -23,7 +23,9 @@ export class ClaudeCode {
    */
   async sendMessage(message: string, onChunk?: (chunk: string) => void): Promise<ClaudeResponse> {
     return new Promise((resolve, reject) => {
-      const args = ['code', '--no-prompt', '--message', message];
+      // Use -p (print mode) for non-interactive output
+      // Pass message as argument, not as --message option
+      const args = ['-p', '--output-format=json', message];
 
       this.process = spawn('claude', args, {
         cwd: this.projectDir,
@@ -49,10 +51,21 @@ export class ClaudeCode {
       });
 
       this.process.on('close', (code) => {
-        if (code === 0 || output) {
-          resolve({ content: output });
+        // Try to parse JSON output
+        if (output.trim()) {
+          try {
+            const jsonOutput = JSON.parse(output.trim());
+            // Extract the actual response content from JSON structure
+            const content = jsonOutput.content || jsonOutput.message || jsonOutput.text || output;
+            resolve({ content });
+          } catch {
+            // If not JSON, use raw output
+            resolve({ content: output });
+          }
+        } else if (errorOutput) {
+          resolve({ content: errorOutput, isError: true });
         } else {
-          resolve({ content: errorOutput || `Claude Code exited with code ${code}`, isError: true });
+          resolve({ content: `Claude Code exited with code ${code}`, isError: true });
         }
       });
 
