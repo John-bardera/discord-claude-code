@@ -10,7 +10,38 @@ Complete guide to set up Discord Claude Code bot.
 
 ---
 
-## Step 1: Create Discord Application
+## Step 1: Install Claude-Mem (Optional but Recommended)
+
+Claude-Mem provides automatic conversation memory. Without it, conversations are lost when sessions timeout.
+
+### Installation
+
+```bash
+# Add Claude-Mem from marketplace
+claude plugin marketplace add thedotmack/claude-mem
+
+# Install the plugin
+claude plugin install claude-mem
+```
+
+### Verification
+
+```bash
+# Verify plugin is installed
+claude plugin list | grep mem
+```
+
+### Web UI (Optional)
+
+Claude-Mem includes a web UI to browse your conversations:
+- URL: http://localhost:37777
+- Automatically starts when you use memory features
+
+> **Note**: If you skip this step, the bot will still work but won't remember past conversations.
+
+---
+
+## Step 2: Create Discord Application
 
 1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
 2. Click **"New Application"**
@@ -19,7 +50,7 @@ Complete guide to set up Discord Claude Code bot.
 
 ---
 
-## Step 2: Create Discord Bot
+## Step 3: Create Discord Bot
 
 1. In the left sidebar, click **"Bot"**
 2. Click **"Add Bot"**
@@ -37,7 +68,7 @@ Complete guide to set up Discord Claude Code bot.
 
 ---
 
-## Step 3: Get Bot Token
+## Step 4: Get Bot Token
 
 1. In the **"Bot"** section, click **"Reset Token"**
 2. Copy the token (you won't be able to see it again!)
@@ -47,7 +78,7 @@ Complete guide to set up Discord Claude Code bot.
 
 ---
 
-## Step 4: Invite Bot to Your Server
+## Step 5: Invite Bot to Your Server
 
 1. In the left sidebar, click **"OAuth2"** > **"URL Generator"**
 2. Select the following scopes:
@@ -69,7 +100,7 @@ Complete guide to set up Discord Claude Code bot.
 
 ---
 
-## Step 5: (Optional) Configure Webhooks for Agent Display
+## Step 6: (Optional) Configure Webhooks for Agent Display
 
 > **Note**: This step is optional for Phase 2. For Phase 1 (simple implementation), you can skip this step.
 
@@ -106,7 +137,7 @@ For each channel where you want webhook support:
 
 ---
 
-## Step 6: Configure Environment Variables
+## Step 7: Configure Environment Variables
 
 1. Copy `.env.example` to `.env`:
    ```bash
@@ -147,7 +178,7 @@ For each channel where you want webhook support:
 
 ---
 
-## Step 7: Install Dependencies
+## Step 8: Install Dependencies
 
 ```bash
 cd discord-claude-code
@@ -156,7 +187,7 @@ npm install
 
 ---
 
-## Step 8: Build and Run
+## Step 9: Build and Run
 
 ### Development Mode
 
@@ -173,7 +204,7 @@ npm start
 
 ---
 
-## Step 9: Verify Setup
+## Step 10: Verify Setup
 
 1. Check bot is online:
    - Go to your Discord server
@@ -185,7 +216,15 @@ npm start
    - The bot should respond via Claude Code
    - Try asking a coding question to verify full functionality
 
-3. Test webhook support (if configured in Step 5):
+3. Test memory persistence (if Claude-Mem installed in Step 1):
+   - Send a message: "Remember that my favorite color is blue"
+   - Wait for session timeout (or use `/stop` if implemented)
+   - Send another message: "What's my favorite color?"
+   - The bot should remember: "You mentioned your favorite color is blue"
+   - Try `/history` to see past conversations
+   - Try `/search color` to find the relevant conversation
+
+4. Test webhook support (if configured in Step 6):
    - Send a message in a webhook-configured channel
    - The response should appear via webhook (different appearance if configured)
 

@@ -6,9 +6,27 @@
 
 - ✅ **Discord UI** - Use Discord as input/output interface for Claude Code
 - ✅ **Parallel Sessions** - Multiple concurrent sessions (thread/channel-based)
-- ✅ **Context Persistence** - Maintain context during active sessions
+- ✅ **Context Persistence** - Automatic conversation memory via Claude-Mem MCP
 - ✅ **Resource Management** - Auto-close sessions after timeout
+- ✅ **Conversation History** - `/history` command to view past conversations
+- ✅ **Full-text Search** - `/search` command to search conversation history
 - ✅ **Lightweight** - Minimal resource footprint (no Docker required)
+
+### 🧠 Automatic Memory
+
+Conversations are **automatically saved** and **restored** - no manual intervention required:
+
+```
+User: (Sends message in Discord)
+   ↓
+Bot: (Automatically retrieves past conversation context)
+   ↓
+Bot: (Sends context + message to Claude Code)
+   ↓
+Bot: (Automatically saves the conversation to memory)
+```
+
+**User experience**: Just chat normally. Your conversations are automatically remembered!
 
 ### 🚧 Planned Features (Phase 2)
 
@@ -68,14 +86,31 @@ npm run dev
 
 ## 📖 Usage
 
+### Commands
+
 | Command | Description |
 |---------|-------------|
-| `/start` | Start a new Claude Code session in the current thread/channel |
-| `/stop` | Stop the current session |
-| `/status` | Check session status |
+| `/history` | List all past conversations across channels/threads |
+| `/search <query>` | Search conversation history |
 | `/help` | Show help message |
 
-Simply send a message in a registered thread/channel to interact with Claude.
+### Chatting
+
+Simply send a message in any channel/thread with the bot:
+
+```
+User: Hello, can you help me build a REST API?
+Bot: Of course! Let's start by...
+```
+
+**No setup required** - conversations are automatically saved and restored!
+
+### Memory Features
+
+- **Automatic Persistence**: All conversations are automatically saved to Claude-Mem
+- **Context Restoration**: When you return to a channel/thread, past context is automatically loaded
+- **Cross-Session Search**: Use `/search` to find information from any past conversation
+- **History View**: Use `/history` to see all your conversations
 
 ## 🏗️ Architecture
 
