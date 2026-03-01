@@ -2,6 +2,8 @@
 
 > Discordボット for Claude Code - Discordからセッション管理付きでClaude Codeを使う
 
+[English](README.md) | [日本語](README.ja.md)
+
 ## 🎯 機能（フェーズ1）
 
 - ✅ **Discord UI** - DiscordをClaude Codeの入出力インターフェースとして使用

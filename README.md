@@ -2,6 +2,8 @@
 
 > Discord bot for Claude Code - Use Claude Code from Discord with session management
 
+[English](README.md) | [日本語](README.ja.md)
+
 ## 🎯 Features (Phase 1)
 
 - ✅ **Discord UI** - Use Discord as input/output interface for Claude Code
