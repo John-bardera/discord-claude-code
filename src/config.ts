@@ -14,6 +14,7 @@ export interface Config {
   claude: {
     projectDir: string;
   };
+  webhooks: Record<string, string>;  // channelId -> webhookUrl
   allowedUserIds?: string[];
   logLevel: 'debug' | 'info' | 'warn' | 'error';
 }
@@ -28,6 +29,16 @@ function getEnvVar(key: string, required = true): string {
 
 export function loadConfig(): Config {
   const allowedUserIds = getEnvVar('ALLOWED_USER_IDS', false);
+
+  // Load webhook configuration
+  const webhooks: Record<string, string> = {};
+  for (const [key, value] of Object.entries(process.env)) {
+    if (key.startsWith('WEBHOOK_CHANNEL_') && value) {
+      const channelId = key.replace('WEBHOOK_CHANNEL_', '');
+      webhooks[channelId] = value;
+    }
+  }
+
   return {
     discord: {
       token: getEnvVar('DISCORD_TOKEN'),
@@ -40,6 +51,7 @@ export function loadConfig(): Config {
     claude: {
       projectDir: getEnvVar('CLAUDE_CODE_PROJECT_DIR', false) || process.cwd(),
     },
+    webhooks,
     allowedUserIds: allowedUserIds ? allowedUserIds.split(',').map(id => id.trim()) : undefined,
     logLevel: (getEnvVar('LOG_LEVEL', false) || 'info') as Config['logLevel'],
   };

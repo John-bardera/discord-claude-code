@@ -9,6 +9,8 @@ import {
 import { config } from './config.js';
 import { sessionManager, SessionInfo } from './session.js';
 import { ClaudeCode } from './claude.js';
+import { webhookManager } from './webhook.js';
+import { parseAgentFromMessage } from './agents.js';
 
 /**
  * Discord Bot for Claude Code
@@ -37,6 +39,21 @@ export class DiscordClaudeBot {
   private setupEventHandlers(): void {
     this.client.once('ready', () => {
       console.log(`✓ Bot logged in as ${this.client.user?.tag}`);
+
+      // Register webhooks from config
+      const webhookCount = Object.keys(config.webhooks).length;
+      if (webhookCount > 0) {
+        console.log(`✓ Registering ${webhookCount} webhook(s)...`);
+
+        for (const [channelId, webhookUrl] of Object.entries(config.webhooks)) {
+          webhookManager.registerWebhook(channelId, webhookUrl);
+          console.log(`  - Channel ${channelId}: ${webhookUrl.substring(0, 30)}...`);
+        }
+
+        console.log(`✓ Webhooks registered successfully`);
+      } else {
+        console.log(`⚠ No webhooks configured (multi-agent identity disabled)`);
+      }
     });
 
     this.client.on('messageCreate', async (message) => {
@@ -102,12 +119,29 @@ export class DiscordClaudeBot {
 
       // Send response to Discord
       if (response.content) {
-        // Split long messages
-        const maxLength = 2000;
-        const chunks = response.content.match(new RegExp('.{1,' + maxLength + '}', 'g')) || [];
+        // Check if webhook is configured for this channel
+        const hasWebhook = webhookManager.hasWebhook(channelId);
 
-        for (const chunk of chunks) {
-          await message.reply(chunk);
+        if (hasWebhook) {
+          // Parse agent from response
+          const agent = parseAgentFromMessage(response.content);
+
+          if (agent) {
+            // Send as agent via webhook
+            await webhookManager.sendAsAgent(channelId, agent.id, response.content);
+          } else {
+            // Send as regular bot via webhook
+            await webhookManager.sendAsBot(channelId, response.content);
+          }
+        } else {
+          // No webhook configured, use regular bot reply
+          // Split long messages
+          const maxLength = 2000;
+          const chunks = response.content.match(new RegExp('.{1,' + maxLength + '}', 'g')) || [];
+
+          for (const chunk of chunks) {
+            await message.reply(chunk);
+          }
         }
       } else if (response.isError) {
         await message.reply(`❌ Error: ${response.content}`);
