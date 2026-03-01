@@ -28,7 +28,6 @@ export class DiscordClaudeBot {
       partials: [
         Partials.Channel,
         Partials.Message,
-        Partials.Thread,
       ],
     });
 
@@ -82,8 +81,10 @@ export class DiscordClaudeBot {
     // Update activity
     sessionManager.updateActivity(channelId, channelIdType);
 
-    // Send typing indicator
-    await message.channel.sendTyping();
+    // Send typing indicator (only for TextChannel and ThreadChannel)
+    if ('sendTyping' in message.channel) {
+      await message.channel.sendTyping();
+    }
 
     // Get or create Claude instance
     let claude = this.claudeInstances.get(channelId);
