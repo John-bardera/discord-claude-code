@@ -21,6 +21,7 @@
   "author": "John <your-email@example.com>",
   "license": "MIT",
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.7"
   },
